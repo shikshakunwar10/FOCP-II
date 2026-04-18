@@ -1,0 +1,60 @@
+#include <iostream>
+#include <vector>
+#include <set>
+#include <string>
+
+using namespace std;
+
+void solve() {
+    int n;
+    if (!(cin >> n)) return;
+
+    vector<int> a(n);
+    for (int i = 0; i < n; ++i) {
+        cin >> a[i];
+    }
+
+    set<int> alex_sugar, bob_sugar;
+    long long alex_total = 0, bob_total = 0;
+    bool alex_turn = true;
+
+    for (int i = 0; i < n; ++i) {
+        int current_sugar = a[i];
+
+        if (alex_turn) {
+
+            if (alex_sugar.find(current_sugar) == alex_sugar.end()) {
+                alex_total += current_sugar;
+                alex_sugar.insert(current_sugar);
+                alex_turn = false; 
+            }
+           
+        } else {
+
+            if (bob_sugar.find(current_sugar) == bob_sugar.end()) {
+                bob_total += current_sugar;
+                bob_sugar.insert(current_sugar);
+                alex_turn = true; 
+            }
+
+        }
+    }
+
+    if (alex_total > bob_total) {
+        cout << "Alex" << endl;
+    } else {
+        cout << "Bob" << endl;
+    }
+}
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
+    int t;
+    if (!(cin >> t)) return 0;
+    while (t--) {
+        solve();
+    }
+    return 0;
+}
